@@ -1,0 +1,4 @@
+libserialcomm.so
+*.o
+main.exe
+core
