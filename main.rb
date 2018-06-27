@@ -28,22 +28,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# In this example we put the system in the minimum informations for running a cycle
+# The code generates the output as in the image of the readme, when the SIL_SIM is
+# defined in firmware.
 
-
-require './libserialcomm_ruby.rb'
+require "./libserialcomm_ruby.rb"
 
 sc = SerialComm.new "/dev/ttyACM0"
 
-sc.update
-sleep(1)
-print "Initial KI = "
-puts sc.PI_ki
+sc.auto_pres
+sc.auto_temp
 
-sc.PI_ki = 5.0
-sc.update
-sleep(1)
-print "Modified KI = "
-puts sc.PI_ki
+sc.p_high = 25.0
+sc.p_low = 5.0
 
-sc.close
-sleep(1)
+sc.PI_ki = 0.3
+sc.PI_kp = 6.0
+sc.t_set = 40.0
+sc.period = 6.0
+sc.duty_cycle = 0.5
+
+sc.play
+
+
+begin
+  while (1)
+    sc.update
+    puts "#{sc.cycle}, #{sc.p_actuator_meas}, #{sc.p_accumulator_meas}, #{sc.t_meas}"
+    sleep 0.1 
+  end
+ensure
+  sc.close
+end

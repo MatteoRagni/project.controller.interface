@@ -78,5 +78,11 @@ The **Execution** commands are:
  * `sc.play`: run the cycle
  * `sc.pause`: pause the cycle
  * `sc.stop`: emergency stop
- 
+
+## The example
+
+The example `main.rb`, with the `SIL_SIM` option in the firmware, generates the following
+output:
+
+![image](sil_sim.png)
 
